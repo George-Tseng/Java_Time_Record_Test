@@ -33,6 +33,7 @@ public class File_Conf {
             osw0.write(timeNow);
             osw0.flush();
             fos0.close();
+            osw0.close();
         } catch(IOException IOE){
             System.out.println(IOE.getMessage());
         }
@@ -89,6 +90,7 @@ public class File_Conf {
             osw0.write(timeNow);
             osw0.flush();
             fos0.close();
+            osw0.close();
         } catch(IOException IOE){
             System.out.println(IOE.getMessage());
         }

@@ -41,10 +41,16 @@ public class Java_Time_Record_Test {
 			/*上次使用時按正常流程關閉*/
 			else if (File_Conf.checkConfFile() && !File_Conf.checkTmpFile()) {
 
-				String lastTime = File_Conf.readConfFile();
+				String allLastTime = File_Conf.readConfFile();
+				String [] recordSpace = allLastTime.split("\n");
+				String lastTime = recordSpace[recordSpace.length - 1];
+
 				System.out.println("上次啟動時間為："+lastTime);
 
 				timeNow = Get_Date.getDateNow();
+				String allTime = allLastTime + "\n" + timeNow;
+
+				File_Conf.writeConfFile(allTime);
 
 				if(!File_Conf.createTmpFile().equals("")){
 					System.out.println("暫存檔建立失敗...\n錯誤資訊為：");
@@ -65,10 +71,16 @@ public class Java_Time_Record_Test {
 			else if (File_Conf.checkConfFile() && File_Conf.checkTmpFile()) {
 				System.out.println("程式似乎並未正常地被關閉...");
 
-				String lastTime = File_Conf.readConfFile();
+				String allLastTime = File_Conf.readConfFile();
+				String [] recordSpace = allLastTime.split("\n");
+				String lastTime = recordSpace[recordSpace.length - 1];
+
 				System.out.println("上次啟動時間為："+lastTime);
 
 				timeNow = Get_Date.getDateNow();
+				String allTime = allLastTime + "\n" + timeNow;
+
+				File_Conf.writeConfFile(allTime);
 
 				if(!File_Conf.deleteTmpFileNow().equals("")){
 					System.out.println("上次執行時的暫存檔清除失敗...\n錯誤資訊為：");
@@ -98,13 +110,14 @@ public class Java_Time_Record_Test {
 				System.out.println("上次啟動時間為："+lastTime);
 
 				timeNow = Get_Date.getDateNow();
+				String allTime = lastTime + "\n" + timeNow;
 
 				if(!File_Conf.createConfFile().equals("")){
 					System.out.println("設定檔建立失敗...\n錯誤資訊為：");
 					System.out.println(File_Conf.createConfFile());
 				}
 				else{
-					File_Conf.writeConfFile(timeNow);
+					File_Conf.writeConfFile(allTime);
 				}
 
 				if(!File_Conf.deleteTmpFileNow().equals("")){
